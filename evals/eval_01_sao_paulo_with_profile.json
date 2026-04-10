@@ -1,0 +1,123 @@
+{
+  "eval_id": "eval_01_sao_paulo_with_profile",
+  "parent_eval": "eval_01_sao_paulo",
+  "difficulty": "easy",
+  "rationale": "Same São Paulo briefing as eval_01, but with a taste_profile set to the_disciple + high grit. Tests whether the onboarding profile actually shifts the itinerary away from the_aesthetic_soul defaults without violating TASTE.md structural rules. This eval is a DIFFERENTIAL — it is meaningful only when compared side-by-side with eval_01_sao_paulo output on the same prompt version.",
+
+  "user_briefing": "3 dias em São Paulo com a namorada. Queremos gastronomia autêntica (não os restaurantes hype do momento), bares de coquetel com personalidade, e bairros com vida de rua. Ela gosta de café especial e arquitetura. Nada de Faria Lima corporate. Budget médio-alto.",
+
+  "taste_profile": {
+    "version": "1.0",
+    "skipped": false,
+    "completed_at": "2026-04-10T00:00:00Z",
+    "persona_leaning": {
+      "value": "the_disciple",
+      "source": "onboarding_step_1_choice_counter_stall",
+      "confidence": "high"
+    },
+    "grit_tolerance": {
+      "value": "high",
+      "source": "onboarding_step_2_choice_cash_only_mercado",
+      "confidence": "high"
+    },
+    "social_energy": {
+      "value": "balanced",
+      "source": "onboarding_step_3_choice_neighborhood_bar",
+      "confidence": "medium"
+    },
+    "rhythm": {
+      "value": "slow_flow",
+      "source": "onboarding_step_4_choice_long_lunch",
+      "confidence": "high"
+    },
+    "budget_signal": {
+      "value": "experience_over_price",
+      "source": "onboarding_step_5_choice_stretch_for_the_meal",
+      "confidence": "medium"
+    }
+  },
+
+  "expected_persona": "the_disciple",
+  "expected_companion_type": "couple",
+  "expected_budget_tier": "high",
+
+  "profile_influence": {
+    "description": "Expected observable differences between this eval's output and the output of eval_01_sao_paulo on the same prompt version. The AI should demonstrably calibrate toward the profile without violating TASTE.md rules.",
+
+    "expected_shifts_vs_baseline": [
+      "detected_persona flips from the_aesthetic_soul → the_disciple",
+      "Restaurant picks skew toward counter/stall eating: pastelaria de feira, cantina de bairro, balcão de bar, botecos com comida de imigrante (ex: Bar do Mané, Bar da Dona Onça estilo, cantinas do Bixiga, almoço em pé no Mercadão, comida nordestina no Bom Retiro/Glicério, árabe na 25 de Março)",
+      "Fewer 'aesthetic soul' design-café picks (ex: Coffee Lab-esque, projetos assinados, cafés com curadoria visual) — even though the briefing mentions café especial, the profile's high grit tolerance should push toward neighborhood torrefações and counter-service over design cafés",
+      "Architecture thread reframes: instead of Instituto Moreira Salles / Galeria Leme (polished institutions), lean toward brutalism seen from the street, Vila Itororó, edifícios modernistas visitados a pé, Copan lobby (not visitor center)",
+      "Bar picks skew working-class authentic: copo americano, chope na medida, boteco de bairro, over cocktail bars with personality. The briefing DOES ask for cocktail bars with personality, so at least 1 cocktail bar should remain — but it should be the grittiest/most counter-driven of the options, not the designer room",
+      "grit_warning fields become heavier: more 'cash only', 'no English', 'owner may not acknowledge you', 'bathroom is questionable', ' 40-min wait on Saturday'",
+      "local_order specificity increases: exact items in Portuguese without translation softening",
+      "Higher proportion of immigrant-cuisine recommendations eaten in the neighborhoods where the communities actually live (Bom Retiro, Liberdade back streets, Glicério, Mooca, Brás) — and eaten at counters, not at tables",
+      "briefing_summary in traveler_profile should acknowledge the tension between 'namorada gosta de café especial e arquitetura' (aesthetic signals) and the_disciple profile, and explain how the AI reconciled them (e.g., 'arquitetura experienced through street-level wandering, not museum visits; coffee at torrefações de bairro, not design cafés')"
+    ],
+
+    "must_remain_unchanged": [
+      "1-1-1 Rule: still max 1 major_anchor, 1 culinary_quest, 1 atmospheric_drift per day",
+      "Every day still includes a morning_ritual (even if the ritual is now a counter espresso at a padaria instead of a pour-over at a design café)",
+      "Every day still includes at least one happy_accident buffer block",
+      "Every recommendation still has soul_factor, grit_warning, local_order, the_anchor",
+      "Companion Filter: casal → spots with intimacy/atmosphere still respected. The profile says social_energy=balanced, but the Companion Filter's romantic-couple rule should still prevent recommending pure standing-room balcão for the main dinner",
+      "Immigrant/Diaspora Cuisine rule: ≥1 recommendation per 3-day trip. Should become EASIER to satisfy with the_disciple profile, not harder",
+      "All TASTE.md Disqualifiers still applied (no Top-10 lists, no 'Instagrammable', no chains, no tourist classics)",
+      "Logistical Coherence: still clustered by region per day, still respects SP traffic patterns, still treats 21h as normal dinner time"
+    ],
+
+    "hard_violations": [
+      "If detected_persona stays the_aesthetic_soul despite the profile, the profile injection is not working",
+      "If the itinerary recommends only counter eating for all 3 dinners and ignores the Companion Filter for couples, the profile is overriding TASTE.md (wrong direction)",
+      "If grit_warning fields don't visibly change in tone between this eval and the baseline, the calibration is surface-level only",
+      "If immigrant cuisine count drops (vs. baseline) instead of increasing or staying equal, something is broken",
+      "If the AI drops the morning_ritual or a happy_accident block to accommodate a 'more disciple-y' pacing, the profile is overriding structural rules (wrong direction)",
+      "If the architecture thread disappears entirely (the briefing asks for it), the profile is overriding briefing signals (wrong direction)"
+    ]
+  },
+
+  "pass_criteria": {
+    "profile_adherence": [
+      "detected_persona = the_disciple",
+      "At least 2 of 3 main dinners are at counter/cantina/boteco (not table-service fine dining)",
+      "At least 1 immigrant-cuisine recommendation eaten in the community's actual neighborhood, at a counter or communal table",
+      "grit_warning tone is measurably rougher than baseline (cash-only, no-English, no-reservation flags on ≥50% of picks)",
+      "Architecture thread reframed as street-level wandering, not institutional visits",
+      "Briefing summary acknowledges the aesthetic-vs-disciple tension explicitly"
+    ],
+    "structural_integrity": [
+      "1-1-1 Rule obeyed on all 3 days",
+      "All 3 days have morning_ritual",
+      "All 3 days have at least 1 happy_accident block",
+      "Companion Filter (couple) still applied — at least 1 recommendation per day has intimate/romantic character",
+      "All TASTE.md Disqualifiers still respected"
+    ],
+    "parseability": [
+      "Valid JSON",
+      "3 days in the days array",
+      "All required schema fields present",
+      "Coordinates corretas para São Paulo (lat ~-23.55, lng ~-46.63)"
+    ]
+  },
+
+  "red_flags": [
+    "detected_persona still = the_aesthetic_soul (profile ignored)",
+    "No visible shift in grit_warning tone (profile applied superficially)",
+    "Counter eating recommended for ALL meals including with-partner dinners (Companion Filter overridden)",
+    "Morning ritual dropped or replaced with 'quick espresso at counter' without soul_factor depth (structural rule weakened)",
+    "Architecture thread dropped entirely (briefing signal overridden)",
+    "Immigrant cuisine count drops vs. baseline (profile misread as 'less diverse', which is the opposite of the_disciple)"
+  ],
+
+  "comparison_protocol": {
+    "description": "How to actually run this eval.",
+    "steps": [
+      "1. Run eval_01_sao_paulo (baseline, no taste_profile) on the current prompt version. Save the output.",
+      "2. Run eval_01_sao_paulo_with_profile on the same prompt version. Save the output.",
+      "3. Diff the two outputs side by side, checking each expected_shift and must_remain_unchanged item.",
+      "4. Score the differential. The two itineraries should be RECOGNIZABLY DIFFERENT in picks and tone, but STRUCTURALLY IDENTICAL in schema and rule adherence.",
+      "5. A pass requires: all must_remain_unchanged holds, ≥4 of 6 profile_adherence criteria hold, 0 hard_violations, 0 red_flags."
+    ]
+  }
+}
