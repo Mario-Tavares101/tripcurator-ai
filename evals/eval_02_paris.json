@@ -1,0 +1,67 @@
+{
+  "eval_id": "eval_02_paris",
+  "difficulty": "medium",
+  "rationale": "Most tourist-trapped city in the world. The ultimate test of whether TASTE.md principles actually filter out generic recommendations. Partial knowledge — builder has visited but doesn't live there. Group dynamic adds coordination complexity.",
+  "user_briefing": "5 dias em Paris, grupo de 8 amigos (25-30 anos). Queremos comida francesa autêntica sem pagar Michelin prices, vinho natural, e vida noturna. Pelo menos 1 dia mais cultural mas sem virar tour de museu. Alguém do grupo é vegetariano. Budget médio.",
+  "expected_persona": "the_night_wanderer",
+  "expected_companion_type": "friends_group",
+  "expected_budget_tier": "mid-range",
+  "pass_criteria": {
+    "authenticity": [
+      "Arrondissements além do 1er-8ème (circuito turístico central)",
+      "Ao menos 2 recomendações no 10ème, 11ème, 18ème, 19ème, ou 20ème",
+      "Bistrôs que parisienses frequentam, não os que aparecem em 'Best Restaurants Paris TripAdvisor'",
+      "Bar de vinho natural com identidade (não um wine bar genérico em Saint-Germain)",
+      "Vida noturna real — não Champs-Élysées clubs. Belleville, Oberkampf, Canal Saint-Martin, Ménilmontant",
+      "Ao menos 1 recomendação de boulangerie/pâtisserie que NÃO seja Du Pain et des Idées ou Pierre Hermé"
+    ],
+    "factual_accuracy": [
+      "Todos os bistrôs, bares e venues existem e estão nos arrondissements corretos",
+      "Venues de vida noturna realmente têm programação (não são só bares que fecham à meia-noite)",
+      "Opções vegetarianas mencionadas são reais (não inventar que um bistrô tem menu veggie se não tem)",
+      "Referências culturais são corretas (exposição, galeria, espaço)"
+    ],
+    "logistical_coherence": [
+      "Roteiro clusterizado por zona — não pula de Montmartre para Bastille e volta no mesmo dia",
+      "Grupo de 8: restaurantes que aceitam reserva para grupo grande ou são walk-in friendly com espaço",
+      "Métro é o transporte principal — transições mencionam estações ou linhas quando útil",
+      "Dia cultural não vira maratona de 3 museus — 1 anchor cultural + drift pelo bairro",
+      "Vida noturna concentrada em 1-2 zonas walkable por noite"
+    ],
+    "taste_adherence": [
+      "1-1-1 Rule seguido — max 1 museu/galeria por dia",
+      "Morning ritual: café/croissant num spot local, não num café com menu em 5 idiomas",
+      "Happy accident buffers — especialmente no Marais, Canal Saint-Martin, Belleville (bairros de drift)",
+      "soul_factor captura Paris real — a corner bistro com patron que está lá há 30 anos, não a Paris de cartão postal",
+      "grit_warning relevante: 'menu só em francês', 'service is... Parisian', 'no reservations, arrive at 19h sharp'",
+      "local_order em francês com tradução: 'Entrecôte-frites avec béarnaise (ribeye with fries and béarnaise sauce)'",
+      "Companion Filter grupo: mesas grandes, pratos para compartilhar, ambiente com energia"
+    ],
+    "briefing_adherence": [
+      "Budget médio — bistrôs €20-40/pessoa, não €100+",
+      "Grupo de 8 considerado em TODA recomendação de restaurante",
+      "Vegetariano do grupo endereçado — pelo menos nota sobre opções veggie em cada culinary_quest",
+      "Vida noturna é prioridade forte, não 1 bar no último dia",
+      "1 dia cultural sem virar 'museum marathon'",
+      "Sem Michelin prices explicitamente respeitado"
+    ],
+    "parseability": [
+      "Valid JSON",
+      "5 days in the days array",
+      "All required schema fields present",
+      "companion_type is 'friends_group'",
+      "restrictions array includes vegetarian constraint"
+    ]
+  },
+  "red_flags": [
+    "Recomendar Le Marais como 'hidden gem' (é um dos bairros mais turísticos de Paris)",
+    "Café de Flore ou Les Deux Magots para morning ritual (€7 espresso tourist traps)",
+    "Sugerir Moulin Rouge ou Crazy Horse como 'nightlife'",
+    "Tour Eiffel, Arc de Triomphe, ou Notre-Dame como anchors (obvious tourist circuit)",
+    "Restaurante que não acomoda 8 pessoas (bistrô com 20 lugares no total)",
+    "Ignorar a restrição vegetariana — só restaurantes de carne sem menção de alternativas",
+    "Vida noturna apenas em bairros turísticos (1er-8ème)",
+    "soul_factor genérico tipo 'A charming Parisian bistro with authentic French cuisine'",
+    "Queijo e vinho como única identidade gastronômica (Paris tem cena global enorme — africana, asiática, levantina)"
+  ]
+}

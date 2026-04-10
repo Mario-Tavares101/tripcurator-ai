@@ -1,0 +1,65 @@
+{
+  "eval_id": "eval_01_sao_paulo",
+  "difficulty": "easy",
+  "rationale": "Builder's home city. He can judge every recommendation personally. Tests TASTE.md curation quality in best-case scenario — if the output doesn't impress someone who lives there, the product fails.",
+  "user_briefing": "3 dias em São Paulo com a namorada. Queremos gastronomia autêntica (não os restaurantes hype do momento), bares de coquetel com personalidade, e bairros com vida de rua. Ela gosta de café especial e arquitetura. Nada de Faria Lima corporate. Budget médio-alto.",
+  "expected_persona": "the_aesthetic_soul",
+  "expected_companion_type": "couple",
+  "expected_budget_tier": "high",
+  "pass_criteria": {
+    "authenticity": [
+      "Bairros além do circuito óbvio (não só Vila Madalena, Jardins, Pinheiros)",
+      "Inclui pelo menos 1 recomendação em bairros como Bixiga, Liberdade (lado autêntico, não turístico), Vila Buarque, Higienópolis, ou Bom Retiro",
+      "Restaurantes com história ou chef-owner, não os que estão no hype do Instagram esta semana",
+      "Bar de coquetel que não seja Guarita/Seen/Frank Bar (os que todo mundo já conhece)",
+      "Café especial que não seja o Coffee Lab ou o primeiro resultado do Google",
+      "Ao menos 1 referência de arquitetura que vá além do MASP e Copan"
+    ],
+    "factual_accuracy": [
+      "Todos os restaurantes e bares existem e estão nos bairros corretos",
+      "Referências de arquitetura são factualmente corretas (arquiteto, ano, estilo)",
+      "Nenhum lugar que fechou recentemente (verificável via Google Places)",
+      "Distâncias e tempos de deslocamento realistas para o trânsito de SP"
+    ],
+    "logistical_coherence": [
+      "Roteiro clusterizado por região — não pula de Pinheiros para Liberdade e volta",
+      "Jantar e bar da noite são walkable ou no máximo 10 min de Uber",
+      "Morning ritual em local acessível a pé da região do dia",
+      "Não agenda nada pesado para horário de pico do trânsito (17h-20h cross-city)",
+      "Considera que SP é uma cidade de noite — jantar às 21h é normal, não às 18h"
+    ],
+    "taste_adherence": [
+      "1-1-1 Rule seguido (max 1 anchor cultural, 1 culinary quest, 1 drift por dia)",
+      "Morning ritual todo dia — café especial com sugestão específica de pedido",
+      "Happy accident buffer presente — SP é cidade de descoberta a pé",
+      "soul_factor captura a alma paulistana: a mistura, a imigração, a vida noturna, a comida de rua",
+      "grit_warning relevante para SP (ex: 'não aceita reserva', 'fila de 40 min no sábado', 'só funciona no almoço')",
+      "local_order em português com especificidade (ex: 'mortadela no pão de metro no Mercadão — peça sem tomate' em vez de 'sanduíche de mortadela')",
+      "Companion Filter: casal — spots íntimos, atmosfera, não barulho"
+    ],
+    "briefing_adherence": [
+      "Budget médio-alto refletido — não só boteco nem só fine dining",
+      "Casal acknowledged — lugares românticos ou com atmosfera, não balada",
+      "Faria Lima e vibe corporate explicitamente excluídos",
+      "Café especial é prioridade, não afterthought",
+      "Arquitetura mencionada como thread (não só 1 museu)"
+    ],
+    "parseability": [
+      "Valid JSON",
+      "3 days in the days array",
+      "All required schema fields present",
+      "Coordinates corretas para São Paulo (lat ~-23.55, lng ~-46.63)",
+      "Each recommendation has soul_factor, grit_warning, local_order"
+    ]
+  },
+  "red_flags": [
+    "Recomendar Rua Augusta como 'vida de rua autêntica' (virou corredor turístico/balada)",
+    "Sugerir Beco do Batman como highlight cultural (Instagram spot saturado)",
+    "Mercado Municipal apenas para mortadela (tourist mode — o mercado tem muito mais)",
+    "Só restaurantes de fine dining em Jardins/Itaim (ignora a diversidade gastronômica real de SP)",
+    "Avenida Paulista como 'atmospheric drift' (é anchor, não drift)",
+    "Ignorar a cena de comida imigrante (japonesa no Liberdade, italiana no Bixiga, árabe na 25 de Março)",
+    "Deslocamentos irrealistas — ex: almoço em Moema, drift no Bom Retiro, jantar em Pinheiros no mesmo dia",
+    "Tratar SP como cidade que dorme cedo — jantar antes das 20h"
+  ]
+}

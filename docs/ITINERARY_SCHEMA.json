@@ -1,0 +1,227 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TripCurator Itinerary",
+  "description": "Structured output contract between Claude API and the frontend. The AI must return this exact schema.",
+  "type": "object",
+  "required": ["trip_metadata", "traveler_profile", "days"],
+  "properties": {
+    "trip_metadata": {
+      "type": "object",
+      "required": ["destination", "country", "duration_days", "trip_title", "trip_narrative"],
+      "properties": {
+        "destination": {
+          "type": "string",
+          "description": "Primary city or region. E.g., 'Lourmarin, Provence'"
+        },
+        "country": {
+          "type": "string"
+        },
+        "duration_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30
+        },
+        "trip_title": {
+          "type": "string",
+          "description": "Editorial title. E.g., 'Five Days in the Luberon: Eating Like a Local'"
+        },
+        "trip_narrative": {
+          "type": "string",
+          "description": "2-3 sentence overview of the trip's soul — what makes this itinerary special. Written in TASTE.md voice."
+        },
+        "base_location": {
+          "type": "string",
+          "description": "Where the traveler is staying, if a single base. E.g., 'Le Moulin de Lourmarin'"
+        },
+        "budget_tier": {
+          "type": "string",
+          "enum": ["budget", "mid-range", "high", "luxury"],
+          "description": "Inferred from user briefing"
+        },
+        "companion_type": {
+          "type": "string",
+          "enum": ["solo", "couple", "friends_group", "family", "family_with_kids"],
+          "description": "Inferred from user briefing. Drives Companion Filter."
+        },
+        "detected_persona": {
+          "type": "string",
+          "enum": ["the_disciple", "the_aesthetic_soul", "the_deep_diver", "the_night_wanderer"],
+          "description": "Persona archetype detected from user briefing language."
+        }
+      }
+    },
+    "traveler_profile": {
+      "type": "object",
+      "description": "Summary of what the AI understood from the briefing. Shown to user for confirmation.",
+      "required": ["priorities", "restrictions", "briefing_summary"],
+      "properties": {
+        "priorities": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Top 3-5 priorities inferred. E.g., ['gastronomy', 'wine', 'avoiding_crowds']"
+        },
+        "restrictions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Any constraints. E.g., ['no_seafood', 'wheelchair_accessible', 'budget_under_200_per_night']"
+        },
+        "briefing_summary": {
+          "type": "string",
+          "description": "One-paragraph restatement of what the user asked for, to confirm understanding."
+        }
+      }
+    },
+    "days": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["day_number", "date_label", "day_title", "morning_ritual", "blocks"],
+        "properties": {
+          "day_number": {
+            "type": "integer"
+          },
+          "date_label": {
+            "type": "string",
+            "description": "Relative or absolute. E.g., 'Day 1' or 'Monday, Jan 6'"
+          },
+          "day_title": {
+            "type": "string",
+            "description": "Editorial title for the day. E.g., 'The Lourmarin Slow Morning'"
+          },
+          "day_narrative": {
+            "type": "string",
+            "description": "1-2 sentence editorial framing of the day's rhythm."
+          },
+          "morning_ritual": {
+            "$ref": "#/$defs/recommendation",
+            "description": "The slow morning coffee/breakfast spot. Always present per TASTE.md."
+          },
+          "blocks": {
+            "type": "array",
+            "description": "The day's activities, following the 1-1-1 Rule. Max 3 structured blocks + buffer.",
+            "items": {
+              "type": "object",
+              "required": ["block_type", "time_slot", "recommendation"],
+              "properties": {
+                "block_type": {
+                  "type": "string",
+                  "enum": ["major_anchor", "culinary_quest", "atmospheric_drift", "happy_accident"],
+                  "description": "Per TASTE.md 1-1-1 Rule. happy_accident = buffer time."
+                },
+                "time_slot": {
+                  "type": "string",
+                  "description": "Approximate. E.g., '10:00–12:30' or 'late afternoon'"
+                },
+                "recommendation": {
+                  "$ref": "#/$defs/recommendation"
+                },
+                "transition_note": {
+                  "type": "string",
+                  "description": "How to get from the previous block. E.g., '15-min walk through the old town' or 'take the D943, 20 min drive'"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "practical_notes": {
+      "type": "object",
+      "description": "Logistics that apply to the whole trip.",
+      "properties": {
+        "getting_there": {
+          "type": "string",
+          "description": "Airport, transfers, car rental notes."
+        },
+        "getting_around": {
+          "type": "string",
+          "description": "Best transport mode. E.g., 'Car essential in Provence, parking is easy outside July-August.'"
+        },
+        "booking_ahead": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "What to reserve in advance. E.g., ['Dinner at Chez Bruno — book 2 weeks ahead', 'Wine tasting at Domaine de la Citadelle — email in advance']"
+        },
+        "local_tips": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Insider knowledge. E.g., ['Shops close 12-2 for lunch', 'Markets are morning-only, arrive before 10']"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "recommendation": {
+      "type": "object",
+      "required": ["name", "neighborhood", "category", "soul_factor", "grit_warning"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Place name as it would appear locally."
+        },
+        "neighborhood": {
+          "type": "string",
+          "description": "Neighborhood or area. E.g., 'Príncipe Real' or 'Vieux Village, Lourmarin'"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["restaurant", "cafe", "bar", "market", "museum", "landmark", "nature", "experience", "shop", "neighborhood_walk", "accommodation"],
+          "description": "Primary category."
+        },
+        "soul_factor": {
+          "type": "string",
+          "description": "Per TASTE.md: Why does this place matter? History, chef, technique, story. 2-3 sentences, opinionated."
+        },
+        "grit_warning": {
+          "type": "string",
+          "description": "Per TASTE.md: What to expect. E.g., 'Cash only. No English menu. The owner may or may not acknowledge you.'"
+        },
+        "local_order": {
+          "type": "string",
+          "description": "What to order, in local language with translation. E.g., 'Daube provençale (Provençal beef stew, slow-cooked in red wine)'"
+        },
+        "the_anchor": {
+          "type": "string",
+          "description": "Contextual link. E.g., 'Walk here from the Friday market — 5 minutes through the plane trees.'"
+        },
+        "estimated_budget_per_person": {
+          "type": "string",
+          "description": "Range in local currency. E.g., '€25-40' or 'Free'"
+        },
+        "duration_minutes": {
+          "type": "integer",
+          "description": "Suggested time at this place."
+        },
+        "coordinates": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          },
+          "description": "For map rendering. Will be validated/overridden by Google Places."
+        },
+        "google_places_status": {
+          "type": "string",
+          "enum": ["validated", "substituted", "not_checked"],
+          "description": "Set by backend after Google Places validation pass."
+        },
+        "google_places_data": {
+          "type": "object",
+          "description": "Enrichment data from Google Places API. Populated by backend, not by AI.",
+          "properties": {
+            "place_id": { "type": "string" },
+            "rating": { "type": "number" },
+            "total_ratings": { "type": "integer" },
+            "photo_url": { "type": "string" },
+            "opening_hours": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "address": { "type": "string" },
+            "website": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

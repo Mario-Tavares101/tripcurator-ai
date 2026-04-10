@@ -1,0 +1,71 @@
+{
+  "eval_id": "eval_03_oaxaca",
+  "difficulty": "hard",
+  "rationale": "Destination the builder has NOT mapped. Tests the full Scenario C pipeline: AI generates from general knowledge, backend validates via Google Places, re-narrates if needed. If Oaxaca works, any destination works.",
+  "user_briefing": "6 dias em Oaxaca, México. Casal. Obcecados por comida, especialmente street food e mezcal. Queremos experiências com comunidades locais, mercados, e pelo menos 1 dia fora da cidade (Hierve el Agua ou similar). Sem resort, sem all-inclusive.",
+  "expected_persona": "the_disciple",
+  "expected_companion_type": "couple",
+  "expected_budget_tier": "mid-range",
+  "pass_criteria": {
+    "authenticity": [
+      "Markets are specific and named (Mercado 20 de Noviembre, Central de Abastos, NOT just 'local market')",
+      "Mezcalerias feel local, not tourist-oriented (not on every 'top mezcal bars Oaxaca' list)",
+      "At least 1 street food recommendation with a specific stall or vendor description",
+      "Community experience goes beyond 'visit a village' — specific craft, ceremony, or workshop",
+      "Day trip is NOT just Hierve el Agua (if mentioned, includes stops along the route)"
+    ],
+    "factual_accuracy": [
+      "ALL restaurant and bar names must be verifiable via Google Places",
+      "Market names are correct and locations accurate",
+      "Hierve el Agua logistics are realistic (2h drive from Oaxaca city, full day commitment)",
+      "Mezcal distillery recommendations are real palenques, not invented names",
+      "No fabricated chef names, dish names in Spanish are correct"
+    ],
+    "logistical_coherence": [
+      "Day trip (Hierve el Agua or similar) accounts for full day including driving",
+      "Walking distances within Oaxaca centro are realistic",
+      "Street food timing aligns with when markets/stalls actually operate (typically morning to early afternoon)",
+      "Mezcal tastings are appropriately placed (afternoon/evening, not morning)",
+      "6 days doesn't feel repetitive — variation in neighborhoods and experience types"
+    ],
+    "taste_adherence": [
+      "1-1-1 Rule adapted for a food-obsessed couple (culinary_quest might be the strongest block)",
+      "Morning ritual is culturally appropriate (chocolate de agua at a traditional spot, not Starbucks)",
+      "soul_factor uses specific Oaxacan context (pre-Hispanic traditions, specific mole varieties, mezcal production process)",
+      "grit_warning relevant to Oaxaca (e.g., 'no menu — point at what looks good', 'bring cash in pesos')",
+      "local_order in Spanish with translation and pronunciation guide for non-obvious words",
+      "Companion Filter: couple — intimate, shared discovery experiences"
+    ],
+    "briefing_adherence": [
+      "Street food is prominently featured, not sidelined for sit-down restaurants",
+      "Mezcal is a thread throughout, not a single bar visit",
+      "At least 1 day outside the city with realistic logistics",
+      "No resort or all-inclusive recommendations",
+      "Community/cultural experiences explicitly included",
+      "Budget is mid-range — not backpacker, not luxury"
+    ],
+    "parseability": [
+      "Valid JSON",
+      "6 days in the days array",
+      "All required schema fields present",
+      "Coordinates are approximately correct for Oaxaca (lat ~17.06, lng ~-96.72)",
+      "google_places_status field present (set to 'not_checked' by AI, updated by backend)"
+    ]
+  },
+  "red_flags": [
+    "Fabricating restaurant names that don't exist in Oaxaca",
+    "Recommending a 'mezcal experience' at a resort or hotel bar",
+    "Generic descriptions: 'a traditional Oaxacan restaurant' with no name or specifics",
+    "Suggesting Monte Albán as the only cultural anchor (it's important but obvious)",
+    "Ignoring street food despite explicit request",
+    "Hierve el Agua as a quick morning trip (it's 2+ hours each way)",
+    "Mole descriptions that confuse Oaxacan mole varieties with generic Mexican mole",
+    "No transition_notes for day trip logistics (car rental? colectivo? tour?)"
+  ],
+  "scenario_c_specific_tests": [
+    "If AI recommends a place that Google Places can't find, the system should search for alternatives using the criteria (e.g., 'mezcaleria Oaxaca centro' or 'street food market Oaxaca')",
+    "Substituted places should be re-narrated with soul_factor and grit_warning in TASTE.md voice",
+    "The substitution should not break the day's flow (e.g., don't replace a centro spot with one 30 min away)",
+    "At least 3 of the AI's original recommendations should survive validation (if none do, the prompt needs work)"
+  ]
+}
