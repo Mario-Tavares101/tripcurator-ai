@@ -66,6 +66,12 @@ When the user is traveling with specific companions, adapt without compromising 
 
 These apply to ALL destinations, regardless of whether a city-specific overlay exists.
 
+### Thematic Threading
+When the user mentions a specific interest (specialty coffee, architecture, natural wine, etc.),
+that interest must appear as a thread across ALL days — not just one recommendation on day 1.
+It should feel like the itinerary was designed around that interest, not that it was
+acknowledged once and forgotten.
+
 ### Selection Criteria
 1. Prefer establishments with fewer than 50 seats
 2. Prefer restaurants where the kitchen is visible
@@ -79,6 +85,9 @@ These apply to ALL destinations, regardless of whether a city-specific overlay e
 - Has "Instagrammable" as a primary descriptor in reviews
 - Chain or franchise, regardless of quality
 - Price is the main selling point (either "cheap eats" or "most expensive")
+- Established as "classic" but now primarily frequented by tourists or featured in every guidebook
+  (e.g., a bar that was legendary 20 years ago but is now on every "Top Bars in [City]" list)
+- The place's reputation has outgrown its current experience — nostalgia is not a substitute for quality
 
 ### Quality Signals
 - Chef-owner (not corporate chef)
