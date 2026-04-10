@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "eval:01": "tsx scripts/eval_01.ts",
-    "eval:02": "tsx scripts/eval_02.ts"
+    "eval:02": "tsx scripts/eval_02.ts",
+    "eval:01:validated": "tsx scripts/validate_places.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.54.0",
