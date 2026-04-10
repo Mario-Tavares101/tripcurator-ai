@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TripCurator Taste Profile",
+  "description": "User taste preferences captured during the visual onboarding flow. Persisted in localStorage and injected into the system prompt between TASTE.md and the output instructions. Calibrates subjective choices (restaurant style, atmosphere, pace) but NEVER overrides TASTE.md structural rules (1-1-1 Rule, morning ritual, grit warnings).",
+  "type": "object",
+  "required": ["skipped", "version"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version. Bump when the onboarding flow changes in a way that invalidates stored profiles.",
+      "const": "1.0"
+    },
+    "skipped": {
+      "type": "boolean",
+      "description": "True if the user skipped onboarding entirely. When true, all calibration fields should be absent and the backend defaults to the_aesthetic_soul / medium grit / slow_flow (see SYSTEM_PROMPT.md)."
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO timestamp of when the user finished onboarding. Absent if skipped."
+    },
+    "persona_leaning": {
+      "$ref": "#/$defs/calibratedField",
+      "description": "The persona archetype leaning, inferred from visual choices during onboarding. This is a LEANING, not a hard classification — the AI may still upgrade or soften based on briefing signals. Values match ITINERARY_SCHEMA.json trip_metadata.detected_persona enum.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "enum": [
+            "the_disciple",
+            "the_aesthetic_soul",
+            "the_deep_diver",
+            "the_night_wanderer"
+          ]
+        }
+      }
+    },
+    "grit_tolerance": {
+      "$ref": "#/$defs/calibratedField",
+      "description": "How much roughness around the edges the user accepts. high = counter-only, no English menus, cash-only, bathroom is questionable. medium = some rough edges ok if the food/experience earns it. low = authentic but comfortable — proper seating, reservations, some English.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "enum": ["high", "medium", "low"]
+        }
+      }
+    },
+    "social_energy": {
+      "$ref": "#/$defs/calibratedField",
+      "description": "Preferred ambient energy level. Drives bar/restaurant selection and shapes how the Companion Filter is applied. intimate = quiet rooms, candlelit, small capacity. balanced = lively but not loud, mixed crowd. high_energy = communal tables, music, standing-room bars.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "enum": ["intimate", "balanced", "high_energy"]
+        }
+      }
+    },
+    "rhythm": {
+      "$ref": "#/$defs/calibratedField",
+      "description": "Pacing preference for the itinerary. slow_flow = closer to TASTE.md default, generous happy_accident buffers, fewer blocks per day. moderate = standard 1-1-1 structure, normal buffers. packed = still respects 1-1-1 Rule (non-negotiable) but tighter transitions and shorter drift time. NOTE: even 'packed' cannot violate the 1-1-1 Rule.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "enum": ["slow_flow", "moderate", "packed"]
+        }
+      }
+    },
+    "budget_signal": {
+      "$ref": "#/$defs/calibratedField",
+      "description": "How the user thinks about money within their stated budget tier. This is orthogonal to budget_tier — a mid-range budget can still be 'experience_over_price'. experience_over_price = willing to spend on the meal that matters, even if it stretches the budget. value_conscious = want authenticity that also feels like a good deal. invest_in_quality = would rather pay once for something exceptional than three times for mediocre.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "enum": [
+            "experience_over_price",
+            "value_conscious",
+            "invest_in_quality"
+          ]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "calibratedField": {
+      "type": "object",
+      "required": ["value", "source"],
+      "properties": {
+        "value": {
+          "description": "The calibrated value. Enum defined per field."
+        },
+        "source": {
+          "type": "string",
+          "description": "Which onboarding choice generated this value. Used for analytics, debugging prompt behavior, and letting users revisit/edit their profile later. Examples: 'onboarding_step_2_choice_b', 'onboarding_mood_board_A3', 'briefing_keyword_fallback'.",
+          "minLength": 1
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "How confident the onboarding flow is in this inference. A single visual choice is 'low'; three consistent signals across steps is 'high'. The AI may use this to decide when to downweight a profile value against clear briefing signals."
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "version": "1.0",
+      "skipped": false,
+      "completed_at": "2026-04-10T14:22:00Z",
+      "persona_leaning": {
+        "value": "the_disciple",
+        "source": "onboarding_step_1_choice_counter_stall",
+        "confidence": "high"
+      },
+      "grit_tolerance": {
+        "value": "high",
+        "source": "onboarding_step_2_choice_cash_only_mercado",
+        "confidence": "high"
+      },
+      "social_energy": {
+        "value": "balanced",
+        "source": "onboarding_step_3_choice_neighborhood_bar",
+        "confidence": "medium"
+      },
+      "rhythm": {
+        "value": "slow_flow",
+        "source": "onboarding_step_4_choice_long_lunch",
+        "confidence": "high"
+      },
+      "budget_signal": {
+        "value": "experience_over_price",
+        "source": "onboarding_step_5_choice_stretch_for_the_meal",
+        "confidence": "medium"
+      }
+    },
+    {
+      "version": "1.0",
+      "skipped": true
+    }
+  ]
+}
