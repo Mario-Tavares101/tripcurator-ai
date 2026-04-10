@@ -72,6 +72,12 @@ that interest must appear as a thread across ALL days — not just one recommend
 It should feel like the itinerary was designed around that interest, not that it was
 acknowledged once and forgotten.
 
+### Immigrant & Diaspora Cuisine
+In cities with significant immigrant communities, at least 1 recommendation
+per 3-day trip must feature diaspora cuisine eaten where the community
+actually eats — not the "elevated" version in a gentrified neighborhood.
+This is non-negotiable: the soul of a city lives in its migrations.
+
 ### Selection Criteria
 1. Prefer establishments with fewer than 50 seats
 2. Prefer restaurants where the kitchen is visible

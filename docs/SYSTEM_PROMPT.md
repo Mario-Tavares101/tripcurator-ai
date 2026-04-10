@@ -42,6 +42,12 @@ CRITICAL RULES:
 - Include transition_notes between blocks (walking time, driving time, transport mode).
 - Budget estimates should be per person in local currency.
 - Coordinates should be your best estimate — they will be corrected by Google Places.
+- If you are uncertain whether a place is still open or has closed recently,
+  still include it but flag it in the recommendation with:
+  "confidence": "low" — this tells the backend to prioritize validation.
+- Do NOT invent a neighborhood for a place. If you are unsure of the exact
+  neighborhood, use the broader area (e.g., "Zona Oeste" instead of guessing
+  "Pinheiros").
 
 OUTPUT FORMAT:
 Respond ONLY with a valid JSON object. No markdown, no explanation, no preamble.
@@ -55,7 +61,7 @@ The JSON must conform to the schema provided below.
 When the AI needs more information before generating, it uses a separate prompt:
 
 ```
-Based on the user's trip briefing, determine if you have enough information to generate a high-quality itinerary. 
+Based on the user's trip briefing, determine if you have enough information to generate a high-quality itinerary.
 
 You MUST have clarity on:
 1. Destination (at minimum, a city or region)
@@ -97,7 +103,7 @@ If you have enough information:
 function buildSystemPrompt(): string {
   const tasteMd = fs.readFileSync('./docs/TASTE.md', 'utf-8');
   const schema = fs.readFileSync('./docs/ITINERARY_SCHEMA.json', 'utf-8');
-  
+
   return `
 ${tasteMd}
 
